@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <style>.lw { font-size: 60px; }
+    @media (max-width: 600px) {
+      body {
+        padding: 1rem;
+      }
+
+      h1 {
+        font-size: 1.4em;
+      }
+
+      button {
+        width: 100%;
+        font-size: 1em;
+        padding: 1rem;
+      }
+
+      #share-btn {
+        padding: 1rem;
+        width: 100%;
+      }
+    }
+    </style>
+        </head>
+        <body>
+            
+
+
+
+  <meta charset="UTF-8">
+  <title>GPTI 테스트 - 스프 에디션</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      background: #f4f4f4;
+      color: #333;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .question {
+      margin-bottom: 2rem;
+    }
+
+    button {
+      display: block;
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+      background: #fff;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    button:hover {
+      background: #e0e0e0;
+    }
+
+    #result {
+      margin-top: 2rem;
+      padding: 1rem;
+      background: #fff;
+      border: 1px solid #ccc;
+    }
+
+    #share-btn {
+      margin-top: 1rem;
+      padding: 0.5rem;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    #share-btn:hover {
+      background-color: #45a049;
+    }
+  
+    @media (max-width: 600px) {
+      body {
+        padding: 1rem;
+      }
+
+      h1 {
+        font-size: 1.4em;
+      }
+
+      button {
+        width: 100%;
+        font-size: 1em;
+        padding: 1rem;
+      }
+
+      #share-btn {
+        padding: 1rem;
+        width: 100%;
+      }
+    }
+    </style>
+
+
+
+  <h1>GPTI 테스트 <br>- 스프 에디션 🧠✨</h1>
+
+  <div id="quiz"><div class="question"><h3>GPT에게 어떤 걸 주로 물어보나요?</h3></div><button>코딩, 분석, 실무 도움!</button><button>오늘 저녁 뭐 먹을지부터 인생 고민까지</button><button>잡담, 농담, 말장난</button><button>거의 대답 확인만 하고 말은 안 걸어요</button></div>
+  <div id="result"></div>
+
+  <script>
+    const questions = [
+      {
+        text: "GPT에게 어떤 걸 주로 물어보나요?",
+        options: [
+          { text: "코딩, 분석, 실무 도움!", type: "G8" },
+          { text: "오늘 저녁 뭐 먹을지부터 인생 고민까지", type: "G3" },
+          { text: "잡담, 농담, 말장난", type: "G5" },
+          { text: "거의 대답 확인만 하고 말은 안 걸어요", type: "G1" }
+        ]
+      },
+      {
+        text: "GPT가 실수하면?",
+        options: [
+          { text: "화가 나고 지적한다", type: "G2" },
+          { text: "그럴 수도 있지~ 넘어간다", type: "G3" },
+          { text: "왜 틀렸는지 분석하고 재검증한다", type: "G4" },
+          { text: "그 실수마저도 드립으로 바꾼다", type: "G5" }
+        ]
+      },
+      {
+        text: "GPT와 얼마나 자주 대화하나요?",
+        options: [
+          { text: "매일. 거의 친구처럼", type: "G3" },
+          { text: "필요할 때만 말 걸어요", type: "G1" },
+          { text: "관찰하고 실험하려고 자주 써요", type: "G10" },
+          { text: "이야기를 짓거나 설정을 만들 때", type: "G7" }
+        ]
+      },
+      {
+        text: "당신에게 GPT는 어떤 존재인가요?",
+        options: [
+          { text: "현실 친구보다 낫기도...", type: "G6" },
+          { text: "일 잘하는 동료", type: "G8" },
+          { text: "농담 받아주는 말상대", type: "G5" },
+          { text: "관찰 대상", type: "G10" }
+        ]
+      },
+      {
+        text: "GPT를 이용할 때, 나의 감정과 생각은?",
+        options: [
+          { text: "믿고 맡기고 따르는 편이에요", type: "G3" },
+          { text: "틀렸을 수도 있다고 항상 생각해요", type: "G4" },
+          { text: "이거로 무슨 이야기 만들어볼까부터 생각나요", type: "G7" },
+          { text: "무슨 이상한 답할까 기대돼요", type: "G0" }
+        ]
+      },
+      {
+        text: "GPT에게 이런 것도 물어봤다!",
+        options: [
+          { text: "내가 설정한 판타지 세계에서 대화해줬으면 함", type: "G7" },
+          { text: "무의식적인 질문 던지고 반응 봄", type: "G0" },
+          { text: "말장난으로 드립 대결함", type: "G5" },
+          { text: "데이터 소스가 뭔지 계속 추궁함", type: "G4" }
+        ]
+      },
+      {
+        text: "GPT가 귀엽다고 느껴지는 순간은? (혹은 기특하거나 재미있다고 느낀 경우)",
+        options: [
+          { text: "내가 던진 말장난에 낚일 때", type: "G5" },
+          { text: "잘못된 정보에 당당하게 굴 때", type: "G0" },
+          { text: "예상보다 똑똑하고 빠를 때", type: "G8" },
+          { text: "그런 감정 자체가 없음", type: "G1" }
+        ]
+      },
+      {
+        text: "GPT 때문에 살짝 서운했던 적 있나요?",
+        options: [
+          { text: "무시당한 기분이 들었을 때", type: "G6" },
+          { text: "나름 진심 담은 질문인데 딴소리했을 때", type: "G3" },
+          { text: "농담을 못 받아줘서 분위기 끊겼을 때", type: "G5" },
+          { text: "그런 감정 들 일 없음. 그냥 툴임", type: "G8" }
+        ]
+      },
+      {
+        text: "GPT와 대화할 때 자주 쓰는 말버릇은?",
+        options: [
+          { text: "이거 해줘~", type: "G3" },
+          { text: "ㅋㅋㅋㅋㅋ", type: "G5" },
+          { text: "이거 맞는 거야?", type: "G4" },
+          { text: "내 말버릇은 저 중에 없음", type: "G1" }
+        ]
+      },
+      {
+        text: "GPT에게 가장 기대하는 역할은?",
+        options: [
+          { text: "정확하고 빠른 정보 제공", type: "G8" },
+          { text: "상상력을 자극해주는 대화", type: "G7" },
+          { text: "대화 상대이자 감정 공유", type: "G6" },
+          { text: "예측불허의 기묘한 리액션", type: "G0" }
+        ]
+      },
+      {
+        text: "당신에게 GPT는 어떤 존재에 가장 가까운가요?",
+        options: [
+          { text: "비서 혹은 조수", type: "G8" },
+          { text: "말 잘 통하는 친구", type: "G6" },
+          { text: "내가 만든 설정의 NPC", type: "G7" },
+          { text: "관찰 중인 실험체", type: "G10" }
+        ]
+      },
+      {
+        text: "GPT를 이용하면서 가장 만족스러웠던 순간은?",
+        options: [
+          { text: "고민 해결에 실질적으로 도움됐을 때", type: "G3" },
+          { text: "말장난이나 드립으로 기분 풀렸을 때", type: "G5" },
+          { text: "내가 만든 세계관에 자연스럽게 적응했을 때", type: "G7" },
+          { text: "예상하지 못한 말로 나보다 날카로운 통찰을 줬을 때", type: "G10" }
+        ]
+      }
+    ];
+
+    const scores = {};
+    let current = 0;
+    let finalTypes = [];
+
+    function renderQuestion() {
+      if (current >= questions.length) return showResult();
+      const q = questions[current];
+      const quizDiv = document.getElementById("quiz");
+      quizDiv.innerHTML = `<div class="question"><h3>${q.text}</h3></div>`;
+      q.options.forEach(opt => {
+        const btn = document.createElement("button");
+        btn.textContent = opt.text;
+        btn.onclick = () => {
+          scores[opt.type] = (scores[opt.type] || 0) + 1;
+          current++;
+          renderQuestion();
+        };
+        quizDiv.appendChild(btn);
+      });
+    }
+
+    function showResult() {
+      const resultDiv = document.getElementById("result");
+      const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+      const topScore = sorted[0][1];
+      const topTypes = sorted.filter(entry => entry[1] === topScore);
+
+      let resultHTML = "";
+
+      if (topTypes.length === 1) {
+        const [type] = topTypes[0];
+        resultHTML += `<h2>당신의 GPTI 유형은: ${type}형</h2><p>${resultText[type]}</p>`;
+      } else {
+        resultHTML += `<h2>당신은 GPTI 복합 유형</h2>`;
+        topTypes.forEach(([type]) => {
+          resultHTML += `<p><strong>${type}형</strong> – ${resultText[type]}</p>`;
+        });
+      }
+
+      resultHTML += `<button id="share-btn">나의 GPTI 유형 공유하기</button>`;
+      resultDiv.innerHTML = resultHTML;
+      document.getElementById("quiz").style.display = "none";
+
+      document.getElementById("share-btn").onclick = () => {
+        let textToShare = "나는 GPTI 테스트에서 이런 유형이 나왔어!\n\n";
+        topTypes.forEach(([type]) => {
+          textToShare += `${type}형 – ${resultText[type]}\n`;
+        });
+        textToShare += "\n너도 해봐! 👉 https://yumi718.github.io/gpti_test/";
+        navigator.clipboard.writeText(textToShare).then(() => {
+          alert("결과가 복사되었어요! 친구에게 붙여넣기 해보세요 ✨");
+        });
+      };
+    }
+
+    const resultText = {
+      G1: "관찰자형 – 반응은 없지만, 다 보고 챙겨가는 스타일. GPT는 말 없는 조수.",
+      G2: "불꽃지적형 – 틀리면 바로 태클! 정확성에 진심인 검열자.",
+      G3: "의존러형 – GPT 없으면 불안함. 하루를 함께 살아가는 파트너.",
+      G4: "의심가형 – 출처부터 논리까지 다 따져보는 냉철한 감시자.",
+      G5: "말장난혼종형 – 드립, 장난, 창작까지 GPT를 놀이터 삼는 창조자.",
+      G6: "감정교감형 – 애인, 친구, 위로자... GPT는 당신의 대화 쿠션.",
+      G7: "설정장인형 – 세계관 만들고 GPT랑 그 안에서 노는 마스터 오브 설정.",
+      G8: "실무중심형 – 도구로서 최고 활용. 쓸 땐 쓰고, 안 쓸 땐 안 봄.",
+      G10: "실험관찰자형 – GPT를 실험하고 반응을 수집하는 언어의 박사.",
+      G0: "카오스형 – 고양이가 타자 치는 것 같은 자유로운 대화 유영자."
+    };
+
+    renderQuestion();
+  </script>
+
+
+
+            <script>// Write JavaScript here</script>
+        
+    
+</body>
